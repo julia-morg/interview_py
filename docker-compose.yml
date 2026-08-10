@@ -1,0 +1,9 @@
+services:
+  interview:
+    image: python:3.12-slim
+    working_dir: /app
+    environment:
+      COLUMNS: "200"
+    volumes:
+      - .:/app
+    command: sleep infinity
