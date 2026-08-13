@@ -1,11 +1,10 @@
-.PHONY: help up down shell chess test test-rotation test-pawn test-ai-client sql-cats sql-phones sql-messages
+.PHONY: help up down shell test-ai-client sql-cats sql-messages
 
 COMPOSE = docker compose
 SERVICE = interview
 VENV = /app/.venv
 PIP = $(VENV)/bin/pip
 PYTHON = $(VENV)/bin/python
-PYTEST = $(VENV)/bin/pytest
 EXEC = $(COMPOSE) exec $(SERVICE)
 
 .DEFAULT_GOAL := help
@@ -24,26 +23,11 @@ down: # Stop container
 shell: # Open sh in container
 	$(EXEC) env PATH="$(VENV)/bin:$$PATH" sh
 
-chess: # Run chess, e.g. make chess MOVES="e2-e4 e7-e5"
-	$(EXEC) $(PYTHON) chess.py $(MOVES)
-
-test: # Run all tests
-	$(EXEC) $(PYTEST)
-
-test-rotation: # Run rotation tests (task 1)
-	$(EXEC) $(PYTEST) -m rotation
-
-test-pawn: # Run pawn tests (task 2)
-	$(EXEC) $(PYTEST) -m pawn
-
-test-ai-client: # Run interviewer checks for task 7
-	$(EXEC) $(PYTHON) -m pytest hints/test_ai_client.py -q
-
-sql-cats: # Run sql/cats.sql (task 3)
+sql-cats: # Run sql/cats.sql (task 2)
 	$(EXEC) $(PYTHON) sql/run_query.py sql/cats.sql
 
-sql-phones: # Run sql/phones.sql (task 4)
-	$(EXEC) $(PYTHON) sql/run_query.py sql/phones.sql
-
-sql-messages: # Run sql/messages.sql (task 5)
+sql-messages: # Run sql/messages.sql (task 3)
 	$(EXEC) $(PYTHON) sql/run_query.py sql/messages.sql
+
+test-ai-client: # Run interviewer checks for task 4
+	$(EXEC) $(PYTHON) -m pytest tests/test_ai_client.py -vv
