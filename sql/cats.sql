@@ -8,8 +8,8 @@ CREATE TABLE pets (
 
 INSERT INTO pets (employee_id, animal) VALUES
     (1, 'кошка'),
-    (2, 'кошка'),
     (2, 'собака'),
+    (2, 'кошка'),
     (3, 'пони'),
     (4, 'питон'),
     (4, 'мышь'),
